@@ -42,16 +42,6 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'omegacontainerregister'
-    repository: 'raghav141988/contacts-external-api-gateway'
-    command: 'buildAndPush'
-    Dockerfile: './contacts-external-api-gateway/Dockerfile'
-    buildContext: './contacts-external-api-gateway'
-    tags: |
-      latest
-      $(Build.BuildId)
-- task: Docker@2
-  inputs:
-    containerRegistry: 'omegacontainerregister'
     repository: 'raghav141988/contacts-frontend'
     command: 'buildAndPush'
     Dockerfile: './contacts-frontend/Dockerfile'
@@ -87,16 +77,6 @@ steps:
     namespace: 'kube-system'
     command: 'set'
     arguments: 'image deployment/contact-backend-deployment contacts-api=raghav141988/contacts-backend:$(Build.BuildId)'
-    secretType: 'dockerRegistry'
-    containerRegistryType: 'Container Registry'
-    dockerRegistryEndpoint: 'omegacontainerregister'
-- task: Kubernetes@1
-  inputs:
-    connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'omegaAppCluster-default'
-    namespace: 'kube-system'
-    command: 'set'
-    arguments: 'image deployment/contact-contact-backend-api-deployment contacts-backend-api=raghav141988/contacts-external-api-gateway:$(Build.BuildId)'
     secretType: 'dockerRegistry'
     containerRegistryType: 'Container Registry'
     dockerRegistryEndpoint: 'omegacontainerregister'
