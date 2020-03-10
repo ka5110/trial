@@ -72,7 +72,7 @@ steps:
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'contactsServiceConnection'
+    kubernetesServiceEndpoint: 'omegaAppCluster-default'
     namespace: 'kube-system'
     command: 'apply'
     arguments: '-f ./contacts-deployment/k8s'
@@ -83,7 +83,7 @@ steps:
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'contactsServiceConnection'
+    kubernetesServiceEndpoint: 'omegaAppCluster-default'
     namespace: 'kube-system'
     command: 'set'
     arguments: 'image deployment/contact-frontend-deployment contacts-frontend=raghav141988/contacts-frontend:$(Build.BuildId)'
@@ -93,7 +93,7 @@ steps:
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'contactsServiceConnection'
+    kubernetesServiceEndpoint: 'omegaAppCluster-default'
     namespace: 'kube-system'
     command: 'set'
     arguments: 'image deployment/contact-backend-deployment contacts-api=raghav141988/contacts-backend:$(Build.BuildId)'
@@ -103,7 +103,7 @@ steps:
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'contactsServiceConnection'
+    kubernetesServiceEndpoint: 'omegaAppCluster-default'
     namespace: 'kube-system'
     command: 'set'
     arguments: 'image deployment/contact-contact-backend-api-deployment contacts-backend-api=raghav141988/contacts-external-api-gateway:$(Build.BuildId)'
