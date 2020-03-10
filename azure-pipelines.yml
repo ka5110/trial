@@ -39,16 +39,7 @@ steps:
       latest
       $(Build.BuildId)
 
-- task: Docker@2
-  inputs:
-    containerRegistry: 'omegacontainerregister'
-    repository: 'raghav141988/contacts-frontend'
-    command: 'buildAndPush'
-    Dockerfile: './contacts-frontend/Dockerfile'
-    buildContext: './contacts-frontend'
-    tags: |
-      latest
-      $(Build.BuildId)
+- 
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
@@ -60,16 +51,7 @@ steps:
     containerRegistryType: 'Container Registry'
     dockerRegistryEndpoint: 'omegacontainerregister'
     secretName: 'docker-secret'
-- task: Kubernetes@1
-  inputs:
-    connectionType: 'Kubernetes Service Connection'
-    kubernetesServiceEndpoint: 'omegaAppCluster-default'
-    namespace: 'kube-system'
-    command: 'set'
-    arguments: 'image deployment/contact-frontend-deployment contacts-frontend=raghav141988/contacts-frontend:$(Build.BuildId)'
-    secretType: 'dockerRegistry'
-    containerRegistryType: 'Container Registry'
-    dockerRegistryEndpoint: 'omegacontainerregister'
+
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
