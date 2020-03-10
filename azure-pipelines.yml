@@ -39,7 +39,7 @@ steps:
       latest
       $(Build.BuildId)
 
-- 
+
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
