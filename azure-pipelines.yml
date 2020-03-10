@@ -27,16 +27,6 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: false
 
-- task: Maven@3
-  inputs:
-    mavenPomFile: 'contacts-external-api-gateway/pom.xml'
-    goals: 'clean verify'
-    publishJUnitResults: false
-    javaHomeOption: 'JDKVersion'
-    mavenVersionOption: 'Default'
-    mavenAuthenticateFeed: false
-    effectivePomSkip: false
-    sonarQubeRunAnalysis: false
 
 - task: Docker@2
   inputs:
