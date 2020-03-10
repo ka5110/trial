@@ -48,8 +48,9 @@ steps:
     command: 'apply'
     arguments: '-f ./contacts-deployment/k8s'
     secretType: 'dockerRegistry'
-    containerRegistryType: 'Container Registry'
-    dockerRegistryEndpoint: 'omegacontainerregister'
+    containerRegistryType: 'Azure Container Registry'
+    azureSubscriptionEndpointForSecrets: 'Pay-As-You-Go(61491b33-d350-4948-9780-8eac16502236)'
+    azureContainerRegistry: 'omegacontainerregister.azurecr.io'
     secretName: 'docker-secret'
 
 - task: Kubernetes@1
@@ -60,5 +61,6 @@ steps:
     command: 'set'
     arguments: 'image deployment/contact-backend-deployment contacts-api=raghav141988/contacts-backend:$(Build.BuildId)'
     secretType: 'dockerRegistry'
-    containerRegistryType: 'Container Registry'
-    dockerRegistryEndpoint: 'omegacontainerregister'
+    containerRegistryType: 'Azure Container Registry'
+    azureSubscriptionEndpointForSecrets: 'Pay-As-You-Go(61491b33-d350-4948-9780-8eac16502236)'
+    azureContainerRegistry: 'omegacontainerregister.azurecr.io'
