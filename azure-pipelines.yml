@@ -40,7 +40,7 @@ steps:
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'omegacontainerregister.azurecr.io'
+    containerRegistry: 'omegacontainerregister'
     repository: 'raghav141988/contacts-backend'
     command: 'buildAndPush'
     Dockerfile: './contacts-backend/Dockerfile'
@@ -51,7 +51,7 @@ steps:
 
 - task: Docker@2
   inputs:
-    containerRegistry: 'omegacontainerregister.azurecr.io'
+    containerRegistry: 'omegacontainerregister'
     repository: 'raghav141988/contacts-external-api-gateway'
     command: 'buildAndPush'
     Dockerfile: './contacts-external-api-gateway/Dockerfile'
@@ -61,7 +61,7 @@ steps:
       $(Build.BuildId)
 - task: Docker@2
   inputs:
-    containerRegistry: 'omegacontainerregister.azurecr.io'
+    containerRegistry: 'omegacontainerregister'
     repository: 'raghav141988/contacts-frontend'
     command: 'buildAndPush'
     Dockerfile: './contacts-frontend/Dockerfile'
@@ -78,7 +78,7 @@ steps:
     arguments: '-f ./contacts-deployment/k8s'
     secretType: 'dockerRegistry'
     containerRegistryType: 'Container Registry'
-    dockerRegistryEndpoint: 'omegacontainerregister.azurecr.io'
+    dockerRegistryEndpoint: 'omegacontainerregister'
     secretName: 'docker-secret'
 - task: Kubernetes@1
   inputs:
@@ -89,7 +89,7 @@ steps:
     arguments: 'image deployment/contact-frontend-deployment contacts-frontend=raghav141988/contacts-frontend:$(Build.BuildId)'
     secretType: 'dockerRegistry'
     containerRegistryType: 'Container Registry'
-    dockerRegistryEndpoint: 'omegacontainerregister.azurecr.io'
+    dockerRegistryEndpoint: 'omegacontainerregister'
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
@@ -99,7 +99,7 @@ steps:
     arguments: 'image deployment/contact-backend-deployment contacts-api=raghav141988/contacts-backend:$(Build.BuildId)'
     secretType: 'dockerRegistry'
     containerRegistryType: 'Container Registry'
-    dockerRegistryEndpoint: 'omegacontainerregister.azurecr.io'
+    dockerRegistryEndpoint: 'omegacontainerregister'
 - task: Kubernetes@1
   inputs:
     connectionType: 'Kubernetes Service Connection'
@@ -109,4 +109,4 @@ steps:
     arguments: 'image deployment/contact-contact-backend-api-deployment contacts-backend-api=raghav141988/contacts-external-api-gateway:$(Build.BuildId)'
     secretType: 'dockerRegistry'
     containerRegistryType: 'Container Registry'
-    dockerRegistryEndpoint: 'omegacontainerregister.azurecr.io'
+    dockerRegistryEndpoint: 'omegacontainerregister'
